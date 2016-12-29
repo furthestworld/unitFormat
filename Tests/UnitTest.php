@@ -17,7 +17,7 @@ class UnitTest extends \PHPUnit_Framework_TestCase {
             '12243433332',
             '7852323436'
         ];
-        $formatted_data = UnitFormat::formatDataUnit($origin_data, 10000, ['次', '万次'], [1]);
+        $formatted_data = UnitFormat::formatDataUnit($origin_data, 10000, ['次', '万次', '亿次'], [1]);
         var_dump($formatted_data);
 
 
