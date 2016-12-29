@@ -38,8 +38,12 @@ class UnitFormat {
      * @param array $number_format
      * @return array
      */
-    public static function formatDataUnit($origin_data, $mod = self::MOD_COUNT, $units = self::UNITS_COUNT, $number_format = [2, '.', ',']) {
+    public static function formatDataUnit($origin_data, $mod = self::MOD_COUNT, $units = self::UNITS_COUNT, $number_format = []) {
         $formatted_data = [];
+
+        $decimals      = isset($number_format[0]) ? intval($number_format[0]) : 0;
+        $dec_point     = isset($number_format[1]) ? $number_format[1] : '.';
+        $thousands_sep = isset($number_format[2]) ? $number_format[2] : ',';
         if (is_array($origin_data)) {
             $sort_data = [];
             $new_data  = [];
@@ -51,9 +55,6 @@ class UnitFormat {
             foreach ((array)$origin_data as $key => $val) {
                 $new_val = round($val / pow($mod, $i), 1);
                 if (!empty($number_format) && is_array($number_format)) {
-                    $decimals      = isset($number_format[0]) ? intval($number_format[0]) : 0;
-                    $dec_point     = isset($number_format[1]) ? $number_format[1] : '.';
-                    $thousands_sep = isset($number_format[2]) ? $number_format[2] : ',';
                     $new_val       = number_format($new_val, $decimals, $dec_point, $thousands_sep);
                 }
                 $new_data[$key] = $new_val;
@@ -65,9 +66,6 @@ class UnitFormat {
                 $i       = min(count($units) - 1, intval(floor(log($origin_data, $mod))));
                 $new_val = round($origin_data / pow($mod, $i), 1);
                 if (!empty($number_format) && is_array($number_format)) {
-                    $decimals      = isset($number_format[0]) ? intval($number_format[0]) : 0;
-                    $dec_point     = isset($number_format[1]) ? $number_format[1] : '.';
-                    $thousands_sep = isset($number_format[2]) ? $number_format[2] : ',';
                     $new_val       = number_format($new_val, $decimals, $dec_point, $thousands_sep);
                 }
                 $formatted_data['data'] = $new_val;
