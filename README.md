@@ -62,6 +62,4 @@ array(2) {
 
 * $units ：单位列表
 
-* $number_format ：使用PHP的number_format函数自定义参数数组
-
-对应number_format的后三个参数列表
+* $number_format ：使用PHP的number_format函数自定义参数数组，对应number_format的后三个参数列表
