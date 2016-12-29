@@ -55,7 +55,7 @@ class UnitFormat {
             foreach ((array)$origin_data as $key => $val) {
                 $new_val = round($val / pow($mod, $i), 1);
                 if (!empty($number_format) && is_array($number_format)) {
-                    $new_val       = number_format($new_val, $decimals, $dec_point, $thousands_sep);
+                    $new_val = number_format($new_val, $decimals, $dec_point, $thousands_sep);
                 }
                 $new_data[$key] = $new_val;
             }
@@ -66,7 +66,7 @@ class UnitFormat {
                 $i       = min(count($units) - 1, intval(floor(log($origin_data, $mod))));
                 $new_val = round($origin_data / pow($mod, $i), 1);
                 if (!empty($number_format) && is_array($number_format)) {
-                    $new_val       = number_format($new_val, $decimals, $dec_point, $thousands_sep);
+                    $new_val = number_format($new_val, $decimals, $dec_point, $thousands_sep);
                 }
                 $formatted_data['data'] = $new_val;
                 $formatted_data['unit'] = $units[$i];
@@ -77,5 +77,40 @@ class UnitFormat {
 
         }
         return $formatted_data;
+    }
+
+    /**
+     * @node_name 直接在源数据中格式化
+     * @param        $origin_data
+     * @param string $key
+     * @param int    $mod
+     * @param array  $units
+     * @param array  $number_format
+     */
+    public static function updateDataUnit(&$origin_data, $key, $mod = self::MOD_COUNT, $units = self::UNITS_COUNT, $number_format = []) {
+        if (empty($origin_data) || empty($key) || !is_string($key)) {
+            return;
+        }
+        $formatted_data    = self::formatDataUnit($origin_data[$key], $mod, $units, $number_format);
+        $origin_data[$key] = $formatted_data['data'];
+        $origin_data['unit'] = $formatted_data['unit'];
+    }
+
+    /**
+     * @node_name 直接在源数据中格式化
+     * @param        $origin_data
+     * @param array  $keys
+     */
+    public static function updateMultiDataUnit(&$origin_data, $keys = []) {
+        if (empty($origin_data) || empty($keys) || !is_array($keys)) {
+            return;
+        }
+        foreach ($keys as $key => $rule) {
+            $mod               = isset($rule['mod']) ? intval($rule['mod']) : self::MOD_COUNT;
+            $units             = isset($rule['units']) ? $rule['units'] : self::UNITS_COUNT;
+            $number_format     = isset($rule['number_format']) ? $rule['number_format'] : [];
+            $formatted_data    = self::formatDataUnit($origin_data[$key], $mod, $units, $number_format);
+            $origin_data[$key] = $formatted_data;
+        }
     }
 }

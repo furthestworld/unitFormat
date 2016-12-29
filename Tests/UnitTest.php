@@ -30,7 +30,35 @@ class UnitTest extends \PHPUnit_Framework_TestCase {
         $formatted_data = UnitFormat::formatDataUnit($origin_data, 1024, ['Kb', 'Mb', 'Gb'], [1]);
         var_dump($formatted_data);
 
+        $origin_data = [
+            'data'  => [
+                '35435253234',
+                '43563463',
+                '646778833'
+            ],
+            'data2' => [
+                '35435253234',
+                '43563463',
+                '646778833'
+            ],
+            'other' => [
+                //xxx
+            ]
+        ];
 
+
+
+        UnitFormat::updateDataUnit($origin_data, 'data');
+        var_dump($origin_data);
+
+        UnitFormat::updateMultiDataUnit(
+            $origin_data,
+            [
+                'data'  => ['units' => ['次', '万次', '亿次']],
+                'data2' => ['units' => ['个', '万个', '亿个']]
+            ]
+        );
+        var_dump($origin_data);
     }
 
 }
