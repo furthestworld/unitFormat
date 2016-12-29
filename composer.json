@@ -1,0 +1,27 @@
+{
+    "name": "furthestworld/unitFormat",
+    "description": "一个数据单位格式化的PHP组件",
+    "keywords": [
+        "php",
+        "unitFormat"
+    ],
+    "require": {
+        "php": ">=5.6.19"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "FurthestWorld\\UnitFormat\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "authors": [
+        {
+            "name": "xuanskyer",
+            "email": "furthestworld@icloud.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
