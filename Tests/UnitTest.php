@@ -54,7 +54,7 @@ class UnitTest extends \PHPUnit_Framework_TestCase {
         UnitFormat::updateMultiDataUnit(
             $origin_data,
             [
-                'data'  => ['units' => ['次', '万次', '亿次']],
+                'data'  => ['mod' => 10000, 'units' => ['次', '万次', '亿次'], 'number_format' => [2, '.', ',']],
                 'data2' => ['units' => ['个', '万个', '亿个']]
             ]
         );

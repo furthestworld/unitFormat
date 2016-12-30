@@ -63,3 +63,32 @@ array(2) {
 * $units ：单位列表
 
 * $number_format ：使用PHP的number_format函数自定义参数数组，对应number_format的后三个参数列表
+
+## `updateDataUnit` 方法
+
+* $origin_data  : 原始数据的引用。 直接对原始数据格式化修改
+
+* $key ：需要格式化的数据数组 key
+
+* $mod ：单位进位的模
+
+* $units ：单位列表
+
+* $number_format ：使用PHP的number_format函数自定义参数数组，对应number_format的后三个参数列表
+
+
+## `updateMultiDataUnit` : 直接对原始数据多组数据格式化修改
+
+* $origin_data  : 原始数据的引用。 
+
+* $keys : 多个字段格式化设置数组
+
+格式如下：
+```
+[
+    'key1'  => ['mod' => 10000, 'units' => ['次', '万次', '亿次'], 'number_format' => [2, '.', ',']],
+    'key2' => ['units' => ['个', '万个', '亿个']]
+]
+```
+
+## 其他完善中。。。

@@ -10,21 +10,6 @@ namespace FurthestWorld\UnitFormat\Src;
 
 class UnitFormat {
 
-    const UNITS_COMPUTER  = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const UNITS_TIMES     = ['次', '万次', '亿次'];
-    const UNITS_MONEY_RMB = ['元', '万元', '亿元'];
-    const UNITS_COUNT     = ['个', '万个', '亿个'];
-    const UNITS_PV        = ['PV', '万PV', '亿PV'];
-    const UNITS_UV        = ['UV', '万UV', '亿UV'];
-    const UNITS_BPS       = ['Mbps', 'Gbps', 'Tbps'];
-
-    const MOD_COMPUTER  = 1024;
-    const MOD_TIMES     = 10000;
-    const MOD_MONEY_RMB = 10000;
-    const MOD_COUNT     = 10000;
-    const MOD_PV        = 10000;
-    const MOD_UV        = 10000;
-    const MOD_BPS       = 1000;
 
     /**
      * 格式化数据和单位
@@ -38,7 +23,7 @@ class UnitFormat {
      * @param array $number_format
      * @return array
      */
-    public static function formatDataUnit($origin_data, $mod = self::MOD_COUNT, $units = self::UNITS_COUNT, $number_format = []) {
+    public static function formatDataUnit($origin_data, $mod = UnitMod::MOD_COUNT, $units = UnitMod::UNITS_COUNT, $number_format = []) {
         $formatted_data = [];
 
         $decimals      = isset($number_format[0]) ? intval($number_format[0]) : 0;
@@ -87,12 +72,12 @@ class UnitFormat {
      * @param array  $units
      * @param array  $number_format
      */
-    public static function updateDataUnit(&$origin_data, $key, $mod = self::MOD_COUNT, $units = self::UNITS_COUNT, $number_format = []) {
+    public static function updateDataUnit(&$origin_data, $key, $mod = UnitMod::MOD_COUNT, $units = UnitMod::UNITS_COUNT, $number_format = []) {
         if (empty($origin_data) || empty($key) || !is_string($key)) {
             return;
         }
-        $formatted_data    = self::formatDataUnit($origin_data[$key], $mod, $units, $number_format);
-        $origin_data[$key] = $formatted_data['data'];
+        $formatted_data      = self::formatDataUnit($origin_data[$key], $mod, $units, $number_format);
+        $origin_data[$key]   = $formatted_data['data'];
         $origin_data['unit'] = $formatted_data['unit'];
     }
 
@@ -106,8 +91,8 @@ class UnitFormat {
             return;
         }
         foreach ($keys as $key => $rule) {
-            $mod               = isset($rule['mod']) ? intval($rule['mod']) : self::MOD_COUNT;
-            $units             = isset($rule['units']) ? $rule['units'] : self::UNITS_COUNT;
+            $mod               = isset($rule['mod']) ? intval($rule['mod']) : UnitMod::MOD_COUNT;
+            $units             = isset($rule['units']) ? $rule['units'] : UnitMod::UNITS_COUNT;
             $number_format     = isset($rule['number_format']) ? $rule['number_format'] : [];
             $formatted_data    = self::formatDataUnit($origin_data[$key], $mod, $units, $number_format);
             $origin_data[$key] = $formatted_data;
